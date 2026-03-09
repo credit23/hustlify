@@ -1,12 +1,12 @@
-import imgRectangle138 from "figma:asset/9fe228b915b6829113ac804b537f48e8cab76783.png";
-import imgImage17 from "figma:asset/b7f25c32fc15ebf5050b0c058c898fbae873280b.png";
-import img2Bd22D1DA26840B39Fd921593A283De3Upscayl4XUpscaylStandard4X1 from "figma:asset/79690a2c79c62752a368c837056167dd5e63619e.png";
-import img001A77B9959542688655C1C84F9Bc0442 from "figma:asset/2dd15228dfab814dc2aea79c6c0b4dd8a218893b.png";
-import img001A77B9959542688655C1C84F9Bc0441 from "figma:asset/2cbd6267a883d07002f54fb0dd9e4ecc9b126db8.png";
-import imgImage13 from "figma:asset/59a0ed21409956ef269999b4bbea917137b8d6c3.png";
-import imgImage16 from "figma:asset/c109d35b44a91dd70410f9188f1a475a26606266.png";
-import imgImage14 from "figma:asset/37afb2128abfc58f98f420edd3c8d44a644715d7.png";
-import imgImage15 from "figma:asset/d5c68ca68ab199cf3e6e88d0ebbe1eafe8dbda50.png";
+import imgRectangle138 from "../assets/9fe228b915b6829113ac804b537f48e8cab76783.png";
+import imgImage17 from "../assets/b7f25c32fc15ebf5050b0c058c898fbae873280b.png";
+import img2Bd22D1DA26840B39Fd921593A283De3Upscayl4XUpscaylStandard4X1 from "../assets/79690a2c79c62752a368c837056167dd5e63619e.png";
+import img001A77B9959542688655C1C84F9Bc0442 from "../assets/2dd15228dfab814dc2aea79c6c0b4dd8a218893b.png";
+import img001A77B9959542688655C1C84F9Bc0441 from "../assets/2cbd6267a883d07002f54fb0dd9e4ecc9b126db8.png";
+import imgImage13 from "../assets/59a0ed21409956ef269999b4bbea917137b8d6c3.png";
+import imgImage16 from "../assets/c109d35b44a91dd70410f9188f1a475a26606266.png";
+import imgImage14 from "../assets/37afb2128abfc58f98f420edd3c8d44a644715d7.png";
+import imgImage15 from "../assets/d5c68ca68ab199cf3e6e88d0ebbe1eafe8dbda50.png";
 
 function MaterialSymbolsLanguage() {
   return (
