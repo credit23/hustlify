@@ -144,7 +144,7 @@ export default function AuthPage() {
               <div>
                 <button
                   onClick={() => navigate("/role-choice")}
-                  className="flex items-center gap-1.5 text-[#6B7280] hover:text-[#6D28D9] mb-3 mx-auto transition-colors"
+                  className="flex items-center gap-1.5 text-[#6B7280] hover:text-[#6D28D9] mb-3 transition-colors"
                   style={{ fontSize: "0.82rem" }}
                 >
                   <ArrowLeft size={14} /> Back
@@ -155,6 +155,12 @@ export default function AuthPage() {
                 <p className="text-[#9CA3AF]" style={{ fontSize: "0.85rem" }}>
                   Complete your profile to start applying
                 </p>
+                {/* Progress bar — Step 1 of 2 */}
+                <div className="flex items-center justify-center gap-2 mt-4">
+                  <div className="w-10 h-1.5 rounded-full bg-[#6D28D9]" />
+                  <div className="w-10 h-1.5 rounded-full bg-[#D8B4FE]" />
+                </div>
+                <p className="text-[#9CA3AF] mt-1.5 text-center" style={{ fontSize: "0.72rem" }}>Step 1 of 2 — Account details</p>
               </div>
             )}
             {step === "enterprise-detail" && (
@@ -451,6 +457,13 @@ export default function AuthPage() {
                     PNG, JPG or PDF (Max 5MB)
                   </p>
                 </div>
+              </div>
+              {/* Trust note */}
+              <div className="flex items-start gap-2.5 px-1">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6D28D9" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0 mt-0.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <p className="text-[#6B7280]" style={{ fontSize: "0.75rem", lineHeight: "1.5" }}>
+                  We require a valid ID card to verify employee identity and ensure the security and trust of our clients.
+                </p>
               </div>
 
               <button
