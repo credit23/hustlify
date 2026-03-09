@@ -2,7 +2,7 @@ import { useNavigate, useSearchParams } from "react-router";
 import { useState, useEffect } from "react";
 import { Globe, ArrowLeft, Building2, User, Briefcase, CheckCircle, Lock, Mail, Eye, EyeOff, Upload, IdCard } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
-import hustlifyLogo from "figma:asset/ee079ff6b92e2af14de5404d0251f4a3326be5ea.png";
+import hustlifyLogo from "../../assets/ee079ff6b92e2af14de5404d0251f4a3326be5ea.png";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 
 type Step = "getstarted" | "login" | "role" | "employee-signup" | "client-signup" | "enterprise-detail";
@@ -454,11 +454,11 @@ export default function AuthPage() {
               </div>
 
               <button
-                onClick={() => navigate("/dashboard")}
+                onClick={() => navigate("/employee/selfie")}
                 className="w-full py-3.5 bg-gradient-to-r from-[#6D28D9] to-[#2563EB] text-white rounded-xl hover:shadow-lg hover:shadow-blue-200 transition-all"
                 style={{ fontWeight: 700, fontSize: "0.95rem" }}
               >
-                Create Employee Account
+                Continue →
               </button>
             </div>
           )}

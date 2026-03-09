@@ -1,7 +1,7 @@
 import { useNavigate, NavLink } from "react-router";
 import { Globe, Menu, X, ChevronDown } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
-import hustlifyLogo from "figma:asset/ee079ff6b92e2af14de5404d0251f4a3326be5ea.png";
+import hustlifyLogo from "../../../assets/ee079ff6b92e2af14de5404d0251f4a3326be5ea.png";
 import { useLanguage, type Lang } from "../../context/LanguageContext";
 
 const LANGUAGES: { code: Lang; label: string; flag: string }[] = [

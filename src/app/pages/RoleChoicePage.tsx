@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router";
 import { motion } from "motion/react";
 import { Building2, User, Briefcase, ArrowLeft, Sparkles, CheckCircle } from "lucide-react";
-import hustlifyLogo from "figma:asset/ee079ff6b92e2af14de5404d0251f4a3326be5ea.png";
-import img001A77B9959542688655C1C84F9Bc0442 from "figma:asset/2dd15228dfab814dc2aea79c6c0b4dd8a218893b.png";
-import img001A77B9959542688655C1C84F9Bc0441 from "figma:asset/2cbd6267a883d07002f54fb0dd9e4ecc9b126db8.png";
-import enterpriseImg from "figma:asset/814f612e7387555832d4499fcbe1c165e4e322a9.png";
+import hustlifyLogo from "../../assets/ee079ff6b92e2af14de5404d0251f4a3326be5ea.png";
+import img001A77B9959542688655C1C84F9Bc0442 from "../../assets/2dd15228dfab814dc2aea79c6c0b4dd8a218893b.png";
+import img001A77B9959542688655C1C84F9Bc0441 from "../../assets/2cbd6267a883d07002f54fb0dd9e4ecc9b126db8.png";
+import enterpriseImg from "../../assets/814f612e7387555832d4499fcbe1c165e4e322a9.png";
 
 export default function RoleChoicePage() {
   const navigate = useNavigate();

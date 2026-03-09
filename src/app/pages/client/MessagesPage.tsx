@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Search, Send, Paperclip, Phone, Video, Info, MoreVertical, Smile, CheckCheck, ArrowLeft } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { useNavigate } from "react-router";
-import imgImage6 from "figma:asset/225350e362ddcd84f3581c2fdf7b5ea867eadc53.png";
+import imgImage6 from "../../../assets/225350e362ddcd84f3581c2fdf7b5ea867eadc53.png";
 
 const CONTACTED_WORKERS = [
   {
@@ -83,7 +83,7 @@ export default function MessagesPage() {
       {/* Back Button Header */}
       <div className="bg-white border-b border-[#E0E0E0] px-6 py-4">
         <motion.button
-          onClick={() => navigate("/client/dashboard")}
+          onClick={() => navigate("/client/overview")}
           whileHover={{ x: -2 }}
           whileTap={{ scale: 0.95 }}
           className="flex items-center gap-2 text-[#616161] hover:text-[#7C3AED] transition-colors group"

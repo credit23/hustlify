@@ -1,275 +1,156 @@
 import { useNavigate } from "react-router";
-import {
-  Star,
-  MapPin,
-  CheckCircle,
-  SlidersHorizontal,
-  ChevronDown,
-  Search,
-} from "lucide-react";
-import { useState } from "react";
+import { Bell, Briefcase, CheckCircle, Clock, ChevronRight, Star, TrendingUp, MapPin, Bookmark } from "lucide-react";
+import imgProfile from "../../../assets/225350e362ddcd84f3581c2fdf7b5ea867eadc53.png";
 
-const EMPLOYEES = [
-  {
-    id: "1",
-    name: "John Smith",
-    role: "Software Developer",
-    rating: 4.9,
-    reviews: 198,
-    skills: ["Web development", "Mobile Apps", "JavaScript"],
-    reviews_label: "Reviews: 2",
-    img: "https://images.unsplash.com/photo-1565687981296-535f09db714e?w=120&q=80",
-    verified: true,
-    location: "Alger",
-    available: true,
-  },
-  {
-    id: "2",
-    name: "Jessica Lee",
-    role: "Graphic Designer",
-    rating: 5.0,
-    reviews: 1108,
-    skills: ["Logo Design", "Branding", "Adobe Creative Suite"],
-    reviews_label: "Reviews: 37",
-    img: "https://images.unsplash.com/photo-1765648580528-8d659861d81a?w=120&q=80",
-    verified: true,
-    location: "Oran",
-    available: true,
-  },
-  {
-    id: "3",
-    name: "Michael Davis",
-    role: "Digital Marketer",
-    rating: 4.8,
-    reviews: 67,
-    skills: ["Social Media", "SEO", "Online advertising"],
-    reviews_label: "Reviews: 104",
-    img: "https://images.unsplash.com/photo-1557838923-2985c318be48?w=120&q=80",
-    verified: true,
-    location: "Constantine",
-    available: false,
-  },
-  {
-    id: "4",
-    name: "Sarah Chen",
-    role: "Data Analyst",
-    rating: 4.7,
-    reviews: 187,
-    skills: ["Python", "Power BI", "Data-entry"],
-    reviews_label: "Reviews: 106",
-    img: "https://images.unsplash.com/photo-1738750908048-14200459c3c9?w=120&q=80",
-    verified: true,
-    location: "Alger",
-    available: true,
-  },
-  {
-    id: "5",
-    name: "Karim Benali",
-    role: "Backend Developer",
-    rating: 4.6,
-    reviews: 83,
-    skills: ["Node.js", "PostgreSQL", "Docker"],
-    reviews_label: "Reviews: 83",
-    img: "https://images.unsplash.com/photo-1764690690771-b4522d66b433?w=120&q=80",
-    verified: true,
-    location: "Annaba",
-    available: true,
-  },
-  {
-    id: "6",
-    name: "Nadia Kaci",
-    role: "Content Writer",
-    rating: 4.9,
-    reviews: 221,
-    skills: ["Arabic", "French", "SEO Writing"],
-    reviews_label: "Reviews: 221",
-    img: "https://images.unsplash.com/photo-1765648580528-8d659861d81a?w=120&q=80",
-    verified: false,
-    location: "Sétif",
-    available: true,
-  },
+const RECOMMENDED_JOBS = [
+  { id: 1, title: "React Native Developer", company: "Djezzy", location: "Algiers", salary: "80,000–120,000 DA", type: "Full-time", match: 97, posted: "2h ago", logo: "🟠" },
+  { id: 2, title: "Mobile App Developer", company: "Yassir", location: "Algiers", salary: "70,000–100,000 DA", type: "Full-time", match: 93, posted: "5h ago", logo: "🟡" },
+  { id: 3, title: "Flutter Developer", company: "Mobilis", location: "Oran", salary: "60,000–90,000 DA", type: "Contract", match: 88, posted: "1 day ago", logo: "🟢" },
 ];
 
-function StarRating({ rating }: { rating: number }) {
-  return (
-    <div className="flex items-center gap-0.5">
-      {[1, 2, 3, 4, 5].map((i) => (
-        <Star
-          key={i}
-          size={11}
-          className={
-            i <= Math.floor(rating)
-              ? "text-yellow-400 fill-yellow-400"
-              : "text-gray-200 fill-gray-200"
-          }
-        />
-      ))}
-    </div>
-  );
-}
+const RECENT_APPLICATIONS = [
+  { id: 1, title: "Android Developer", company: "Sonatrach", status: "reviewing", appliedAt: "3 days ago", logo: "🔵" },
+  { id: 2, title: "iOS Developer", company: "Air Algérie", status: "shortlisted", appliedAt: "1 week ago", logo: "🔴" },
+  { id: 3, title: "Full Stack Developer", company: "Algérie Télécom", status: "rejected", appliedAt: "2 weeks ago", logo: "🟣" },
+];
+
+const NOTIFICATIONS = [
+  { id: 1, text: "Yassir viewed your profile", time: "30 min ago", type: "view" },
+  { id: 2, text: "Your application to Air Algérie was shortlisted!", time: "2h ago", type: "success" },
+  { id: 3, text: "New job match: Flutter Developer at Mobilis", time: "5h ago", type: "job" },
+];
+
+const statusStyle: Record<string, string> = {
+  reviewing:   "bg-[#FEF3C7] text-[#D97706]",
+  shortlisted: "bg-[#D1FAE5] text-[#059669]",
+  rejected:    "bg-[#FEE2E2] text-[#DC2626]",
+};
+const statusLabel: Record<string, string> = {
+  reviewing: "Reviewing", shortlisted: "Shortlisted", rejected: "Rejected",
+};
 
 export default function DashboardHome() {
   const navigate = useNavigate();
-  const [sortBy, setSortBy] = useState("Best Rating");
-  const [filterDomain, setFilterDomain] = useState("");
-
   return (
-    <div className="p-6">
-      {/* Welcome Banner */}
-      <div className="mb-6">
-        <h1 className="text-[#1A1A3E]" style={{ fontWeight: 700, fontSize: "1.5rem" }}>
-          Welcome back, <span className="text-[#6C63FF]">Alex!</span>
-        </h1>
-        <p className="text-[#6B7280]" style={{ fontSize: "0.9rem" }}>
-          Find the right employee to help you today
-        </p>
-      </div>
-
-      {/* Hero Banner */}
-      <div className="relative bg-gradient-to-r from-[#6C63FF] to-[#9B8FFF] rounded-2xl p-6 mb-6 overflow-hidden">
-        <div className="relative z-10 max-w-sm">
-          <h2 className="text-white mb-1" style={{ fontWeight: 700, fontSize: "1.3rem" }}>
-            Welcome to Hustlify
-          </h2>
-          <p className="text-white/80 mb-4" style={{ fontSize: "0.875rem" }}>
-            Start by finding a skilled employee that matches your needs
-          </p>
-          <button
-            onClick={() => navigate("/client/post-job")}
-            className="px-5 py-2.5 bg-white text-[#6C63FF] rounded-xl hover:bg-white/90 transition-colors"
-            style={{ fontWeight: 600, fontSize: "0.875rem" }}
-          >
-            Find Employee
-          </button>
-        </div>
-        {/* Decorative circles */}
-        <div className="absolute right-6 top-1/2 -translate-y-1/2 w-32 h-32 rounded-full bg-white/10" />
-        <div className="absolute right-16 top-2 w-16 h-16 rounded-full bg-white/10" />
-        <div className="absolute -right-4 -bottom-4 w-24 h-24 rounded-full bg-white/5" />
-      </div>
-
-      {/* Filter Bar */}
-      <div className="flex items-center justify-between mb-4 gap-4">
+    <div className="space-y-8">
+      {/* Welcome */}
+      <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-[#1A1A3E]" style={{ fontWeight: 700, fontSize: "1.1rem" }}>
-            Employees
-          </h2>
-          <p className="text-[#9CA3AF]" style={{ fontSize: "0.8rem" }}>
-            2,145 results found
-          </p>
+          <h1 className="text-[#1A1A3E] mb-1" style={{ fontSize: "2rem", fontWeight: 800 }}>Welcome back, Karim 👋</h1>
+          <p className="text-[#6B7280]" style={{ fontSize: "0.95rem" }}>Here's what's happening with your job hunt today.</p>
         </div>
-        <div className="flex items-center gap-2">
-          <div className="relative">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#9CA3AF]" />
-            <input
-              value={filterDomain}
-              onChange={(e) => setFilterDomain(e.target.value)}
-              placeholder="Filter domain..."
-              className="pl-8 pr-4 py-2 bg-white rounded-xl border border-purple-100 text-[#1A1A3E] placeholder-[#9CA3AF] outline-none focus:border-[#6C63FF] transition-colors"
-              style={{ fontSize: "0.8rem", width: "160px" }}
-            />
-          </div>
-          <button className="flex items-center gap-1.5 px-3 py-2 bg-white rounded-xl border border-purple-100 text-[#6B7280] hover:border-[#6C63FF] transition-colors">
-            <SlidersHorizontal size={14} />
-            <span style={{ fontSize: "0.8rem" }}>Filter</span>
-          </button>
-          <button className="flex items-center gap-1.5 px-3 py-2 bg-gradient-to-r from-[#6C63FF] to-[#9B8FFF] text-white rounded-xl">
-            <span style={{ fontSize: "0.8rem", fontWeight: 500 }}>{sortBy}</span>
-            <ChevronDown size={14} />
-          </button>
-        </div>
+        <img src={imgProfile} alt="Profile" className="w-14 h-14 rounded-2xl object-cover ring-4 ring-[#6D28D9]/20 shadow-md" />
       </div>
 
-      {/* Employee Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-        {EMPLOYEES.map((emp) => (
-          <div
-            key={emp.id}
-            className="bg-white rounded-2xl p-4 border border-purple-100 shadow-sm hover:shadow-md hover:border-purple-200 transition-all"
-          >
-            <div className="flex items-start gap-3 mb-3">
-              <div className="relative">
-                <img
-                  src={emp.img}
-                  alt={emp.name}
-                  className="w-11 h-11 rounded-xl object-cover border-2 border-purple-100"
-                />
-                {emp.available && (
-                  <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-green-400 border-2 border-white" />
-                )}
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <p
-                      className="text-[#1A1A3E]"
-                      style={{ fontWeight: 600, fontSize: "0.9rem" }}
-                    >
-                      {emp.name}
-                    </p>
-                    <p className="text-[#6B7280]" style={{ fontSize: "0.78rem" }}>
-                      {emp.role}
-                    </p>
-                  </div>
-                  <span className="flex items-center gap-0.5 text-[#9CA3AF]" style={{ fontSize: "0.7rem" }}>
-                    <MapPin size={10} />
-                    {emp.location}
-                  </span>
-                </div>
-                <div className="flex items-center gap-1.5 mt-1">
-                  <StarRating rating={emp.rating} />
-                  <span className="text-[#1A1A3E]" style={{ fontSize: "0.75rem", fontWeight: 600 }}>
-                    {emp.rating}
-                  </span>
-                  <span className="text-[#9CA3AF]" style={{ fontSize: "0.7rem" }}>
-                    {emp.reviews} reviews
-                  </span>
-                </div>
-              </div>
+      {/* Stats */}
+      <div className="grid grid-cols-4 gap-4">
+        {[
+          { label: "Profile Views", value: "48", delta: "+12 this week", icon: TrendingUp, color: "from-[#6D28D9] to-[#8B5CF6]" },
+          { label: "Jobs Applied",  value: "7",  delta: "3 active",       icon: Briefcase,   color: "from-[#2563EB] to-[#3B82F6]" },
+          { label: "Shortlisted",   value: "2",  delta: "1 new",          icon: CheckCircle, color: "from-[#10B981] to-[#059669]" },
+          { label: "Saved Jobs",    value: "11", delta: "Browse more",    icon: Bookmark,    color: "from-[#EC4899] to-[#BE185D]" },
+        ].map((s) => (
+          <div key={s.label} className="bg-white/90 rounded-2xl p-5 border border-[#E5E7EB] shadow-sm">
+            <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${s.color} flex items-center justify-center mb-3`}>
+              <s.icon size={20} className="text-white" />
             </div>
-
-            <div className="flex flex-wrap gap-1 mb-3">
-              {emp.skills.slice(0, 3).map((skill) => (
-                <span
-                  key={skill}
-                  className="px-2 py-0.5 bg-[#F5F3FF] text-[#6C63FF] rounded-lg"
-                  style={{ fontSize: "0.68rem", fontWeight: 500 }}
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
-
-            <div className="flex items-center justify-between pt-3 border-t border-purple-50">
-              <div className="flex items-center gap-1">
-                {emp.verified ? (
-                  <span className="flex items-center gap-1 text-[#6C63FF] bg-[#F0EEFF] px-2 py-0.5 rounded-lg" style={{ fontSize: "0.68rem", fontWeight: 500 }}>
-                    <CheckCircle size={10} />
-                    {emp.reviews_label}
-                  </span>
-                ) : (
-                  <span className="flex items-center gap-1 text-[#9CA3AF] bg-gray-50 px-2 py-0.5 rounded-lg" style={{ fontSize: "0.68rem" }}>
-                    Pending verify
-                  </span>
-                )}
-              </div>
-              <button
-                onClick={() => navigate(`/employee/${emp.id}`)}
-                className="px-4 py-1.5 bg-gradient-to-r from-[#6C63FF] to-[#9B8FFF] text-white rounded-xl hover:opacity-90 transition-opacity"
-                style={{ fontSize: "0.75rem", fontWeight: 500 }}
-              >
-                Contact
-              </button>
-            </div>
+            <p className="text-[#1A1A3E]" style={{ fontSize: "1.8rem", fontWeight: 800, lineHeight: 1 }}>{s.value}</p>
+            <p className="text-[#6B7280] mt-1" style={{ fontSize: "0.78rem" }}>{s.label}</p>
+            <p className="text-[#6D28D9] mt-0.5" style={{ fontSize: "0.72rem", fontWeight: 600 }}>{s.delta}</p>
           </div>
         ))}
       </div>
 
-      {/* Load More */}
-      <div className="flex justify-center mt-6">
-        <button className="px-6 py-2.5 bg-white rounded-xl border border-purple-200 text-[#6C63FF] hover:bg-purple-50 transition-colors" style={{ fontSize: "0.875rem", fontWeight: 500 }}>
-          Load More Employees
-        </button>
+      <div className="grid grid-cols-3 gap-6">
+        {/* Recommended Jobs */}
+        <div className="col-span-2 bg-white/90 rounded-2xl border border-[#E5E7EB] shadow-sm overflow-hidden">
+          <div className="flex items-center justify-between px-6 py-4 border-b border-[#F3F4F6]">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#6D28D9] to-[#8B5CF6] flex items-center justify-center">
+                <Star size={15} className="text-white" />
+              </div>
+              <h2 className="text-[#1A1A3E]" style={{ fontSize: "1rem", fontWeight: 700 }}>Recommended Jobs</h2>
+            </div>
+            <button onClick={() => navigate("/dashboard/jobs")} className="flex items-center gap-1 text-[#6D28D9]" style={{ fontSize: "0.82rem", fontWeight: 600 }}>
+              View all <ChevronRight size={14} />
+            </button>
+          </div>
+          <div className="divide-y divide-[#F3F4F6]">
+            {RECOMMENDED_JOBS.map((job) => (
+              <div key={job.id} className="flex items-center gap-4 px-6 py-4 hover:bg-[#F8F7FF] transition-colors cursor-pointer group" onClick={() => navigate("/dashboard/jobs")}>
+                <div className="w-11 h-11 rounded-xl bg-[#F3F4F6] flex items-center justify-center flex-shrink-0 text-xl">{job.logo}</div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-[#1A1A3E]" style={{ fontSize: "0.92rem", fontWeight: 600 }}>{job.title}</p>
+                  <div className="flex items-center gap-3 mt-0.5">
+                    <span className="text-[#6B7280]" style={{ fontSize: "0.78rem" }}>{job.company}</span>
+                    <div className="flex items-center gap-1"><MapPin size={11} className="text-[#9CA3AF]" /><span className="text-[#9CA3AF]" style={{ fontSize: "0.73rem" }}>{job.location}</span></div>
+                  </div>
+                  <div className="flex items-center gap-2 mt-1.5">
+                    <span className="px-2 py-0.5 bg-[#F0EEFF] text-[#6D28D9] rounded-md" style={{ fontSize: "0.7rem", fontWeight: 600 }}>{job.type}</span>
+                    <span className="text-[#6B7280]" style={{ fontSize: "0.73rem" }}>{job.salary}</span>
+                  </div>
+                </div>
+                <div className="flex flex-col items-end gap-1.5 flex-shrink-0">
+                  <span className="px-2.5 py-1 bg-gradient-to-r from-[#6D28D9] to-[#2563EB] text-white rounded-lg" style={{ fontSize: "0.72rem", fontWeight: 700 }}>{job.match}% match</span>
+                  <span className="text-[#9CA3AF]" style={{ fontSize: "0.7rem" }}>{job.posted}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Notifications */}
+        <div className="bg-white/90 rounded-2xl border border-[#E5E7EB] shadow-sm overflow-hidden">
+          <div className="flex items-center gap-2 px-5 py-4 border-b border-[#F3F4F6]">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#F59E0B] to-[#D97706] flex items-center justify-center">
+              <Bell size={15} className="text-white" />
+            </div>
+            <h2 className="text-[#1A1A3E]" style={{ fontSize: "1rem", fontWeight: 700 }}>Notifications</h2>
+            <span className="ml-auto px-2 py-0.5 bg-[#FEF3C7] text-[#D97706] rounded-full" style={{ fontSize: "0.7rem", fontWeight: 700 }}>{NOTIFICATIONS.length}</span>
+          </div>
+          <div className="divide-y divide-[#F3F4F6]">
+            {NOTIFICATIONS.map((n) => (
+              <div key={n.id} className="px-5 py-3.5 hover:bg-[#FFFBEB] transition-colors cursor-pointer">
+                <div className="flex items-start gap-2.5">
+                  <div className={`w-2 h-2 rounded-full mt-1.5 flex-shrink-0 ${n.type === "success" ? "bg-[#10B981]" : n.type === "view" ? "bg-[#6D28D9]" : "bg-[#F59E0B]"}`} />
+                  <div>
+                    <p className="text-[#1A1A3E]" style={{ fontSize: "0.82rem", fontWeight: 500 }}>{n.text}</p>
+                    <p className="text-[#9CA3AF] mt-0.5" style={{ fontSize: "0.72rem" }}>{n.time}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Recent Applications */}
+      <div className="bg-white/90 rounded-2xl border border-[#E5E7EB] shadow-sm overflow-hidden">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-[#F3F4F6]">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#2563EB] to-[#3B82F6] flex items-center justify-center">
+              <Clock size={15} className="text-white" />
+            </div>
+            <h2 className="text-[#1A1A3E]" style={{ fontSize: "1rem", fontWeight: 700 }}>Recent Applications</h2>
+          </div>
+          <button onClick={() => navigate("/dashboard/applications")} className="flex items-center gap-1 text-[#6D28D9]" style={{ fontSize: "0.82rem", fontWeight: 600 }}>
+            View all <ChevronRight size={14} />
+          </button>
+        </div>
+        <div className="divide-y divide-[#F3F4F6]">
+          {RECENT_APPLICATIONS.map((app) => (
+            <div key={app.id} className="flex items-center gap-4 px-6 py-4 hover:bg-[#F8F7FF] transition-colors cursor-pointer">
+              <div className="w-10 h-10 rounded-xl bg-[#F3F4F6] flex items-center justify-center text-lg flex-shrink-0">{app.logo}</div>
+              <div className="flex-1">
+                <p className="text-[#1A1A3E]" style={{ fontSize: "0.92rem", fontWeight: 600 }}>{app.title}</p>
+                <p className="text-[#6B7280]" style={{ fontSize: "0.78rem" }}>{app.company} · Applied {app.appliedAt}</p>
+              </div>
+              <span className={`px-3 py-1 rounded-full ${statusStyle[app.status]}`} style={{ fontSize: "0.75rem", fontWeight: 600 }}>
+                {statusLabel[app.status]}
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

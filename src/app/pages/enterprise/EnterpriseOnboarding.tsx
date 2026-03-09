@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { CheckCircle, Upload, Building2, Users, MapPin, Briefcase, ArrowRight, ArrowLeft } from "lucide-react";
-import hustlifyLogo from "figma:asset/ee079ff6b92e2af14de5404d0251f4a3326be5ea.png";
+import hustlifyLogo from "../../../assets/ee079ff6b92e2af14de5404d0251f4a3326be5ea.png";
 
 const STEPS = [
   { step: 1, label: "Company Info" },

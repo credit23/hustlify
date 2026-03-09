@@ -32,13 +32,13 @@ import { motion } from "motion/react";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { useLanguage } from "../context/LanguageContext";
 
-import djezzyLogo from "figma:asset/efe6e27efbcaf9616318e504f278b1d182e39ee8.png";
-import mobilisLogo from "figma:asset/c22ae82f3c1f955b89239326a7f4cbd03bed9333.png";
-import yassirLogo from "figma:asset/087358969a4301a5ac196fb81b1680098156ab08.png";
-import airAlgerieLogo from "figma:asset/52a8f2e679d1d7ad69d73bd19e20065b75df7d99.png";
-import sonatrachLogo from "figma:asset/119f59b3cd6a5c8ae761210dae8ef1a3a87ac75f.png";
-import algeriePosteLogo from "figma:asset/02c067c333cf49ef709af3b372e8dbe76df4667b.png";
-import algerieTelecomLogo from "figma:asset/4e0ce0719e35c9eca3aa7f14a4d8b0db85605e5d.png";
+import djezzyLogo from "../../assets/efe6e27efbcaf9616318e504f278b1d182e39ee8.png";
+import mobilisLogo from "../../assets/c22ae82f3c1f955b89239326a7f4cbd03bed9333.png";
+import yassirLogo from "../../assets/087358969a4301a5ac196fb81b1680098156ab08.png";
+import airAlgerieLogo from "../../assets/52a8f2e679d1d7ad69d73bd19e20065b75df7d99.png";
+import sonatrachLogo from "../../assets/119f59b3cd6a5c8ae761210dae8ef1a3a87ac75f.png";
+import algeriePosteLogo from "../../assets/02c067c333cf49ef709af3b372e8dbe76df4667b.png";
+import algerieTelecomLogo from "../../assets/4e0ce0719e35c9eca3aa7f14a4d8b0db85605e5d.png";
 
 const STATS = [
   { value: "+70", label: "Domains", icon: Briefcase },

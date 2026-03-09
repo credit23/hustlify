@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { CheckCircle, ArrowRight, ArrowLeft, User, Target, ChevronDown, ChevronUp, Upload, MapPin } from "lucide-react";
-import hustlifyLogo from "figma:asset/ee079ff6b92e2af14de5404d0251f4a3326be5ea.png";
+import hustlifyLogo from "../../../assets/ee079ff6b92e2af14de5404d0251f4a3326be5ea.png";
 
 const STEPS = [
   { step: 1, label: "Your Needs" },
@@ -168,7 +168,7 @@ export default function ClientOnboarding() {
 
   const next = () => {
     if (currentStep < 2) setCurrentStep((s) => s + 1);
-    else navigate("/client/dashboard");
+    else navigate("/client/browse");
   };
 
   return (
